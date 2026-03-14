@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/EbayAiSeller-live-ui/static/css/main.324d870e.css",
-    "main.js": "/EbayAiSeller-live-ui/static/js/main.d9139499.js",
+    "main.js": "/EbayAiSeller-live-ui/static/js/main.3c0b093b.js",
     "index.html": "/EbayAiSeller-live-ui/index.html",
     "main.324d870e.css.map": "/EbayAiSeller-live-ui/static/css/main.324d870e.css.map",
-    "main.d9139499.js.map": "/EbayAiSeller-live-ui/static/js/main.d9139499.js.map"
+    "main.3c0b093b.js.map": "/EbayAiSeller-live-ui/static/js/main.3c0b093b.js.map"
   },
   "entrypoints": [
     "static/css/main.324d870e.css",
-    "static/js/main.d9139499.js"
+    "static/js/main.3c0b093b.js"
   ]
 }
