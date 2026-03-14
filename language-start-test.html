@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Language Start Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,600;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f0e8;
+        --ink: #2a2520;
+        --ink-soft: #b5ac9e;
+        --hint: #c8bfaf;
+        --active: #000000;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+      }
+
+      body {
+        min-height: 100svh;
+        color: var(--ink);
+        font-family: "DM Mono", monospace;
+        overflow: hidden;
+      }
+
+      .screen {
+        position: relative;
+        width: 100%;
+        min-height: 100svh;
+        overflow: hidden;
+      }
+
+      .eyebrow {
+        position: absolute;
+        top: max(24px, env(safe-area-inset-top));
+        left: 0;
+        right: 0;
+        z-index: 3;
+        text-align: center;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        pointer-events: none;
+      }
+
+      .hint {
+        position: absolute;
+        bottom: calc(18px + env(safe-area-inset-bottom));
+        left: 0;
+        right: 0;
+        z-index: 3;
+        text-align: center;
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--hint);
+        pointer-events: none;
+        animation: breathe 3s ease-in-out infinite;
+      }
+
+      .word {
+        position: absolute;
+        z-index: 5;
+        min-width: 76px;
+        min-height: 52px;
+        padding: 8px 10px;
+        border: 0;
+        border-radius: 18px;
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transform: rotate(var(--r));
+        transform-origin: center center;
+        transition:
+          opacity 0.22s ease,
+          color 0.2s ease,
+          transform 0.22s ease,
+          background 0.22s ease;
+        animation: float-in 0.56s ease both;
+      }
+
+      .word:hover {
+        color: var(--active);
+      }
+
+      .word:active {
+        transform: rotate(var(--r)) scale(0.98);
+      }
+
+      .word:focus-visible {
+        outline: 2px solid #000;
+        outline-offset: 2px;
+      }
+
+      .word.is-selected {
+        color: var(--active);
+        background: rgba(255, 255, 255, 0.38);
+      }
+
+      .screen.has-selection .word:not(.is-selected) {
+        opacity: 0.13;
+      }
+
+      .main {
+        display: block;
+        font-size: clamp(26px, 6vw, 44px);
+        line-height: 1;
+        white-space: nowrap;
+        text-align: center;
+      }
+
+      .sub {
+        display: block;
+        margin-top: 4px;
+        font-family: "DM Mono", monospace;
+        font-size: 8px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #bbb;
+        text-align: center;
+      }
+
+      @keyframes float-in {
+        from {
+          opacity: 0;
+          transform: rotate(var(--r)) translateY(16px) scale(0.92);
+        }
+        to {
+          opacity: 1;
+          transform: rotate(var(--r));
+        }
+      }
+
+      @keyframes breathe {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.85;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="screen" id="screen">
+      <span class="eyebrow">choose your language</span>
+      <span class="hint">tap to begin</span>
+    </main>
+
+    <script>
+      const fonts = {
+        pl: "'Playfair Display', serif",
+        dm: "'DM Serif Display', serif",
+        co: "'Cormorant Garamond', serif",
+        lb: "'Libre Baskerville', serif",
+        lo: "'Lora', serif",
+        eb: "'EB Garamond', serif",
+        cr: "'Crimson Pro', serif",
+        se: "serif",
+      };
+
+      const languages = [
+        { word: "Begin", code: "EN", font: "pl", weight: 700, style: "italic", size: 44, x: 55, y: 6, r: "-8deg" },
+        { word: "Начать", code: "RU", font: "dm", weight: 400, style: "normal", size: 36, x: 3, y: 8, r: "6deg" },
+        { word: "Empezar", code: "ES", font: "lo", weight: 400, style: "italic", size: 38, x: 28, y: 4, r: "-4deg" },
+        { word: "Démarrer", code: "FR", font: "co", weight: 300, style: "italic", size: 46, x: 66, y: 18, r: "5deg" },
+        { word: "Starten", code: "DE", font: "lb", weight: 700, style: "normal", size: 28, x: 6, y: 22, r: "-12deg" },
+        { word: "Iniziare", code: "IT", font: "co", weight: 600, style: "italic", size: 40, x: 40, y: 18, r: "7deg" },
+        { word: "开始", code: "ZH", font: "se", weight: 300, style: "normal", size: 54, x: 18, y: 32, r: "-3deg" },
+        { word: "Mulai", code: "ID", font: "dm", weight: 400, style: "italic", size: 32, x: 62, y: 36, r: "-9deg" },
+        { word: "Başlamak", code: "TR", font: "cr", weight: 600, style: "italic", size: 26, x: 4, y: 40, r: "8deg" },
+        { word: "Começar", code: "PT", font: "pl", weight: 400, style: "normal", size: 34, x: 74, y: 46, r: "4deg" },
+        { word: "始める", code: "JA", font: "se", weight: 400, style: "normal", size: 34, x: 34, y: 44, r: "-6deg" },
+        { word: "시작하다", code: "KO", font: "se", weight: 400, style: "normal", size: 30, x: 56, y: 55, r: "9deg" },
+        { word: "ابدأ", code: "AR", font: "se", weight: 400, style: "normal", size: 44, x: 8, y: 55, r: "-5deg" },
+        { word: "Pradėti", code: "LT", font: "cr", weight: 300, style: "italic", size: 30, x: 36, y: 62, r: "11deg" },
+        { word: "Commencer", code: "BE", font: "eb", weight: 700, style: "italic", size: 28, x: 64, y: 65, r: "-7deg" },
+        { word: "Cominciare", code: "IT", font: "lo", weight: 400, style: "italic", size: 26, x: 4, y: 70, r: "4deg" },
+        { word: "Почати", code: "UA", font: "eb", weight: 400, style: "italic", size: 32, x: 22, y: 72, r: "-10deg" },
+        { word: "Mulai", code: "MY", font: "co", weight: 300, style: "normal", size: 36, x: 55, y: 74, r: "6deg" },
+        { word: "Начаць", code: "BY", font: "dm", weight: 400, style: "normal", size: 28, x: 76, y: 78, r: "-8deg" },
+        { word: "Začít", code: "CZ", font: "pl", weight: 400, style: "italic", size: 34, x: 8, y: 82, r: "5deg" },
+        { word: "Başla", code: "AZ", font: "lb", weight: 400, style: "italic", size: 26, x: 34, y: 84, r: "-4deg" },
+        { word: "시작", code: "KO", font: "se", weight: 400, style: "normal", size: 40, x: 58, y: 86, r: "7deg" },
+      ];
+
+      const screen = document.getElementById("screen");
+
+      languages.forEach((language, index) => {
+        const button = document.createElement("button");
+        button.className = "word";
+        button.type = "button";
+        button.style.left = `${language.x}%`;
+        button.style.top = `${language.y}%`;
+        button.style.setProperty("--r", language.r);
+        button.style.fontFamily = fonts[language.font];
+        button.style.fontWeight = language.weight;
+        button.style.fontStyle = language.style;
+        button.style.fontSize = `${language.size}px`;
+        button.style.animationDelay = `${index * 0.038}s`;
+        button.setAttribute("aria-label", `Select ${language.code}`);
+        button.innerHTML = `<span class="main">${language.word}</span><span class="sub">${language.code}</span>`;
+
+        button.addEventListener("click", () => {
+          screen.classList.add("has-selection");
+          document.querySelectorAll(".word").forEach((item) => {
+            item.classList.remove("is-selected");
+          });
+          button.classList.add("is-selected");
+          history.replaceState({}, "", `#${language.code.toLowerCase()}`);
+        });
+
+        screen.appendChild(button);
+      });
+    </script>
+  </body>
+</html>

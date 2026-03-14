@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "https://gagarinyury.github.io/EbayAiSeller-live-ui/static/css/main.46354bc8.css",
+    "main.js": "https://gagarinyury.github.io/EbayAiSeller-live-ui/static/js/main.f64ffbcd.js",
+    "index.html": "https://gagarinyury.github.io/EbayAiSeller-live-ui/index.html",
+    "main.46354bc8.css.map": "https://gagarinyury.github.io/EbayAiSeller-live-ui/static/css/main.46354bc8.css.map",
+    "main.f64ffbcd.js.map": "https://gagarinyury.github.io/EbayAiSeller-live-ui/static/js/main.f64ffbcd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.46354bc8.css",
+    "static/js/main.f64ffbcd.js"
+  ]
+}
